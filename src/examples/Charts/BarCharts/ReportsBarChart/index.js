@@ -27,10 +27,17 @@ import MDTypography from "components/MDTypography";
 // ReportsBarChart configurations
 import configs from "examples/Charts/BarCharts/ReportsBarChart/configs";
 
+// Import context
+import { useMaterialUIController } from "context";
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function ReportsBarChart({ color, title, description, date, chart }) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
+
+  // Get darkMode state
+  const [controller] = useMaterialUIController();
+  const { darkMode } = controller;
 
   return (
     <Card sx={{ height: "100%" }}>
@@ -53,18 +60,31 @@ function ReportsBarChart({ color, title, description, date, chart }) {
           [color, chart]
         )}
         <MDBox pt={3} pb={1} px={1}>
-          <MDTypography variant="h6" textTransform="capitalize">
+          <MDTypography variant="h6" textTransform="capitalize" sx={{ color: "black !important" }}>
             {title}
           </MDTypography>
-          <MDTypography component="div" variant="button" color="text" fontWeight="light">
+          <MDTypography
+            component="div"
+            variant="button"
+            color="text"
+            fontWeight="light"
+            sx={{ color: "black !important" }}
+          >
             {description}
           </MDTypography>
-          <Divider />
+          <Divider
+            sx={{ borderColor: darkMode ? "rgba(255, 255, 255, 0.25)" : "rgba(0, 0, 0, 0.12)" }}
+          />
           <MDBox display="flex" alignItems="center">
             <MDTypography variant="button" color="text" lineHeight={1} sx={{ mt: 0.15, mr: 0.5 }}>
               <Icon>schedule</Icon>
             </MDTypography>
-            <MDTypography variant="button" color="text" fontWeight="light">
+            <MDTypography
+              variant="button"
+              color="text"
+              fontWeight="light"
+              sx={{ color: "black !important" }}
+            >
               {date}
             </MDTypography>
           </MDBox>

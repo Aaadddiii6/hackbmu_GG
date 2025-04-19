@@ -14,7 +14,7 @@ import { useMaterialUIController, setLayout } from "context";
 
 function DashboardLayout({ children }) {
   const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav } = controller;
+  const { miniSidenav, darkMode } = controller;
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -33,11 +33,12 @@ function DashboardLayout({ children }) {
 
   return (
     <MDBox
-      sx={({ breakpoints, transitions }) => ({
+      sx={({ breakpoints, transitions, palette }) => ({
         p: { xs: 1, sm: 2, md: 3 },
         position: "relative",
-        background: "transparent",
-        transition: transitions.create(["margin-left", "margin-right"], {
+        minHeight: "100vh",
+        backgroundColor: darkMode ? palette.black.main : "transparent",
+        transition: transitions.create(["margin-left", "margin-right", "background-color"], {
           easing: transitions.easing.easeInOut,
           duration: transitions.duration.standard,
         }),

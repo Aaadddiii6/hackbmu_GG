@@ -11,6 +11,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
+import { useMaterialUIController } from "context";
 
 // Initialize AI with your API key (Appears as Gemini, uses Together AI)
 // Note: You should store this in an environment variable in production
@@ -155,20 +156,26 @@ function Chatbot() {
     setSelectedSubject(subject === selectedSubject ? null : subject);
   };
 
+  // Access darkMode from context
+  const [controller] = useMaterialUIController();
+  const { darkMode } = controller;
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox
         sx={{
           position: "relative",
-          backgroundColor: "white",
+          // Adjust background for dark mode
+          backgroundColor: darkMode ? "black" : "white",
           minHeight: "100vh",
           padding: { xs: "0", sm: "20px" },
         }}
       >
         <MDBox
           sx={{
-            backgroundColor: "#f8f9fa",
+            // Adjust inner box background for dark mode
+            backgroundColor: darkMode ? "#1a1a1a" : "#f8f9fa",
             borderRadius: { xs: "0", sm: "15px" },
             padding: { xs: "10px", sm: "20px" },
             marginBottom: { xs: "0", sm: "20px" },
@@ -181,16 +188,25 @@ function Chatbot() {
           <MDBox sx={{ display: { xs: "none", sm: "block" } }}>
             <MDTypography
               variant="h4"
-              color="dark"
+              color="dark" // Keep original color prop for potential theme use
               gutterBottom
-              sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
+              sx={{
+                fontSize: { xs: "1.5rem", sm: "2rem" },
+                // Force black color regardless of mode
+                color: "black !important",
+              }}
             >
               AI Learning Assistant
             </MDTypography>
             <MDTypography
               variant="body1"
-              color="text"
-              sx={{ mb: 3, fontSize: { xs: "0.875rem", sm: "1rem" } }}
+              color="text" // Keep original color prop
+              sx={{
+                mb: 3,
+                fontSize: { xs: "0.875rem", sm: "1rem" },
+                // Force black color regardless of mode
+                color: "black !important",
+              }}
             >
               Get instant help with your studies
             </MDTypography>
@@ -214,13 +230,14 @@ function Chatbot() {
               sx={{
                 display: { xs: "none", sm: "block" },
                 minWidth: "150px",
-                backgroundColor: "white",
+                backgroundColor: "white", // Keep white for visibility
                 borderRadius: "8px",
                 "& .MuiInputBase-input": {
                   color: "dark",
                 },
                 "& .MuiInputLabel-root": {
-                  color: "dark",
+                  // Force black color for the label
+                  color: "black !important",
                 },
                 "& .MuiOutlinedInput-notchedOutline": {
                   borderColor: "rgba(0, 0, 0, 0.2)",
@@ -247,58 +264,46 @@ function Chatbot() {
               overflowY: "auto",
               mb: 2,
               px: { xs: 1, sm: 0 },
+              // Style for messages container
+              "& .message-bubble": {
+                maxWidth: "70%",
+                padding: "10px 15px",
+                borderRadius: "15px",
+                mb: 1,
+                wordWrap: "break-word",
+              },
+              "& .user-message": {
+                backgroundColor: "#0b81ff", // Keep user message color consistent
+                color: "white",
+                marginLeft: "auto",
+                borderBottomRightRadius: "5px",
+              },
+              "& .ai-message": {
+                backgroundColor: darkMode ? "#333" : "#e9ecef", // Adjust AI bubble for dark mode
+                color: darkMode ? "white" : "#343a40", // Default AI text color
+                marginRight: "auto",
+                borderBottomLeftRadius: "5px",
+              },
             }}
           >
-            {messages.map((message, index) => (
-              <MDBox
-                key={index}
-                sx={{
-                  display: "flex",
-                  justifyContent: message.type === "user" ? "flex-end" : "flex-start",
-                  mb: 2,
-                }}
-              >
-                <MDBox
+            {messages.map((msg, index) => (
+              <MDBox key={index} className={`message-bubble ${msg.type}-message`}>
+                <MDTypography
+                  variant="body2"
                   sx={{
-                    maxWidth: "80%",
-                    backgroundColor: message.type === "user" ? "#E8F5E9" : "#E3F2FD",
-                    color: message.type === "user" ? "#2E7D32" : "#1976D2",
-                    padding: "10px 15px",
-                    borderRadius: "15px",
-                    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                    position: "relative",
+                    // Apply black color specifically to the initial AI message
+                    color:
+                      msg.type === "ai" &&
+                      msg.content.startsWith("Hello! I'm your AI Study Assistant")
+                        ? "black !important"
+                        : "inherit",
                   }}
                 >
-                  <MDTypography
-                    variant="body2"
-                    sx={{
-                      fontSize: { xs: "0.875rem", sm: "1rem" },
-                      whiteSpace: "pre-wrap",
-                    }}
-                  >
-                    {message.content}
-                  </MDTypography>
-                  {message.type === "user" && (
-                    <MDBox
-                      sx={{
-                        position: "absolute",
-                        right: "-8px",
-                        bottom: "-8px",
-                        backgroundColor: "#E8F5E9",
-                        borderRadius: "50%",
-                        width: "16px",
-                        height: "16px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Icon sx={{ fontSize: "12px", color: "#2E7D32" }}>person</Icon>
-                    </MDBox>
-                  )}
-                </MDBox>
+                  {msg.content}
+                </MDTypography>
               </MDBox>
             ))}
+            <div ref={messagesEndRef} />
           </MDBox>
 
           <MDBox

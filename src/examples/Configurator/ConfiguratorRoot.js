@@ -18,12 +18,13 @@ import Drawer from "@mui/material/Drawer";
 import { styled } from "@mui/material/styles";
 
 export default styled(Drawer)(({ theme, ownerState }) => {
-  const { boxShadows, functions, transitions } = theme;
-  const { openConfigurator } = ownerState;
+  const { palette, boxShadows, functions, transitions } = theme;
+  const { openConfigurator, darkMode } = ownerState;
 
   const configuratorWidth = 360;
   const { lg } = boxShadows;
   const { pxToRem } = functions;
+  const { black, white } = palette;
 
   // drawer styles when openConfigurator={true}
   const drawerOpenStyles = () => ({
@@ -54,6 +55,7 @@ export default styled(Drawer)(({ theme, ownerState }) => {
       borderRadius: 0,
       boxShadow: lg,
       overflowY: "auto",
+      backgroundColor: darkMode ? black.main : white.main,
       ...(openConfigurator ? drawerOpenStyles() : drawerCloseStyles()),
     },
   };

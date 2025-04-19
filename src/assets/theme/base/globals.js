@@ -27,11 +27,6 @@ const globals = {
     padding: 0,
   },
   body: {
-    backgroundImage: "url('/src/assets/images/v960-ning-05.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundAttachment: "fixed",
-    backgroundRepeat: "no-repeat",
     minHeight: "100vh",
   },
   "a, a:link, a:visited": {

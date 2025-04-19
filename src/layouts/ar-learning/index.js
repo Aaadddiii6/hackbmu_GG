@@ -36,6 +36,7 @@ import cellImage from "assets/images/cell.png";
 import solarsystem1 from "assets/images/solarsystem1.png";
 import solarsystem2 from "assets/images/solarsystem2.png";
 import moon from "assets/images/moon.png";
+import moonrover from "assets/images/moonrover.png";
 
 function ARLearning() {
   const navigate = useNavigate();
@@ -166,7 +167,7 @@ function ARLearning() {
       id: 7,
       title: "solar system",
       description: "Study the vast solar system and planets.",
-      modelUrl: "/models/solarsystem2.glb",
+      modelUrl: "/models/solar_system_animation.glb",
       scale: "0.4 0.4 0.4",
       rotation: "0 0 0",
       position: "0 0 0",
@@ -183,6 +184,18 @@ function ARLearning() {
       rotation: "0 0 0",
       position: "0 0 0",
       image: moon,
+      category: "Technology",
+      subject: "astronomy",
+    },
+    {
+      id: 9,
+      title: "Moon Rover",
+      description: "Study the surface and shape of the moon Rover.",
+      modelUrl: "/models/moonrover.glb",
+      scale: "0.4 0.4 0.4",
+      rotation: "0 0 0",
+      position: "0 0 0",
+      image: moonrover,
       category: "Technology",
       subject: "astronomy",
     },

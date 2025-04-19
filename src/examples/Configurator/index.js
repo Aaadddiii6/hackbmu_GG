@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
 
 // react-github-btn
@@ -131,7 +116,7 @@ function Configurator() {
   });
 
   return (
-    <ConfiguratorRoot variant="permanent" ownerState={{ openConfigurator }}>
+    <ConfiguratorRoot variant="permanent" ownerState={{ openConfigurator, darkMode }}>
       <MDBox
         display="flex"
         justifyContent="space-between"
@@ -162,7 +147,9 @@ function Configurator() {
         </MDBox>
       </MDBox>
 
-      <Divider />
+      <Divider
+        sx={{ borderColor: darkMode ? "rgba(255, 255, 255, 0.25)" : "rgba(0, 0, 0, 0.12)" }}
+      />
 
       <MDBox pt={0.5} pb={3} px={3}>
         <MDBox>
@@ -281,13 +268,23 @@ function Configurator() {
 
           <Switch checked={fixedNavbar} onChange={handleFixedNavbar} />
         </MDBox>
-        <Divider />
+        <Divider
+          sx={{
+            my: 2,
+            borderColor: darkMode ? "rgba(255, 255, 255, 0.25)" : "rgba(0, 0, 0, 0.12)",
+          }}
+        />
         <MDBox display="flex" justifyContent="space-between" alignItems="center" lineHeight={1}>
           <MDTypography variant="h6">Light / Dark</MDTypography>
 
           <Switch checked={darkMode} onChange={handleDarkMode} />
         </MDBox>
-        <Divider />
+        <Divider
+          sx={{
+            my: 2,
+            borderColor: darkMode ? "rgba(255, 255, 255, 0.25)" : "rgba(0, 0, 0, 0.12)",
+          }}
+        />
       </MDBox>
     </ConfiguratorRoot>
   );
