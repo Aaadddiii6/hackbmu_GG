@@ -166,7 +166,6 @@ function Chatbot() {
       <MDBox
         sx={{
           position: "relative",
-          // Adjust background for dark mode
           backgroundColor: darkMode ? "black" : "white",
           minHeight: "100vh",
           padding: { xs: "0", sm: "20px" },
@@ -174,8 +173,7 @@ function Chatbot() {
       >
         <MDBox
           sx={{
-            // Adjust inner box background for dark mode
-            backgroundColor: darkMode ? "#1a1a1a" : "#f8f9fa",
+            backgroundColor: darkMode ? "#adadad" : "#f8f9fa",
             borderRadius: { xs: "0", sm: "15px" },
             padding: { xs: "10px", sm: "20px" },
             marginBottom: { xs: "0", sm: "20px" },
